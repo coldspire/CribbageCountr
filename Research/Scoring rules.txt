@@ -1,0 +1,16 @@
+Things that count for points (num of points)
+------------------------------
+Fifteen (2)
+Pair (2)
+Three of a kind (6: three pairs)
+Four of a kind (12: six pairs)
+Run of 3 (3)
+Run of 4 (4)
+Run of 5 (5)
+Run of 3, double card (8: two 3-runs, plus a pair)
+Run of 4, double card (10: two 4-runs, plus a pair)
+Triple run (15: three pairs, plus a run of three)
+Flush of 4 (4)
+Flush of 5 (5)
+His Nobs (1: Jack is same suit as cut card)
+
