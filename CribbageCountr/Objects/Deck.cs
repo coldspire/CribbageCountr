@@ -50,17 +50,18 @@ namespace CribbageCountr
                     AddCard(new Card(suit, rank));
                 }
             }
-
-            //TEST: For duplicates
-            AddCard(new Card(Suit.Club, Rank.Ace));
         }
 
-        public Deck(bool includeJokers = false, bool allowDuplicates = false)
+        public Deck(bool includeJokers, bool allowDuplicates)
         {
             IncludesJokers = includeJokers;
             AllowsDuplicates = allowDuplicates;
 
             Init();
+        }
+
+        public Deck() : this(false, false)
+        {
         }
     }
 }
