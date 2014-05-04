@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CribbageCountr
 {
-    class Deck
+    public class Deck
     {
         private List<Card> cards = new List<Card>();
 

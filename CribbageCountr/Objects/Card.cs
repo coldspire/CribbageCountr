@@ -5,11 +5,16 @@ using System.Text;
 
 namespace CribbageCountr
 {
-    class Card : IEquatable<Card>
+    public class Card : IEquatable<Card>
     {
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
 
+        /// <summary>
+        /// Compares a card against this card. For IEquatable.
+        /// </summary>
+        /// <param name="otherCard">The card to compare against.</param>
+        /// <returns>Whether this card and the other card are the same.</returns>
         public bool Equals(Card otherCard)
         {
             return (this.Suit == otherCard.Suit &&
