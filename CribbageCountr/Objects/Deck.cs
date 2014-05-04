@@ -12,6 +12,11 @@ namespace CribbageCountr
         public bool IncludesJokers { get; private set; }
         public bool AllowsDuplicates { get; private set; }
 
+        public int NumberOfCards
+        {
+            get { return cards.Count(); }
+        }
+
         public void Shuffle()
         {
             // TODO: Shuffle this deck.
@@ -22,9 +27,13 @@ namespace CribbageCountr
         /// </summary>
         /// <param name="newCard">The card to add.</param>
         /// <returns>Whether the card was added.</returns>
-        private bool AddCard(Card newCard)
+        public bool AddCard(Card newCard)
         {
-            if (!AllowsDuplicates && this.cards.Contains(newCard))
+            bool isJokerAndAllowed = (IncludesJokers && newCard.IsJoker);
+
+            if (!AllowsDuplicates
+                && !isJokerAndAllowed
+                && this.cards.Contains(newCard))
             {
                 return (false);
             }
@@ -34,7 +43,7 @@ namespace CribbageCountr
         }
 
         /// <summary>
-        /// Initializes a standard 52- or 54-card (includes jokers) deck.
+        /// Initializes a standard 52- or 54-card deck.
         /// </summary>
         private void Init()
         {
@@ -42,13 +51,20 @@ namespace CribbageCountr
             {
                 foreach (Rank rank in Enum.GetValues(typeof(Rank)))
                 {
-                    if (rank == Rank.Joker && !IncludesJokers)
+                    if (suit == Suit.Joker || rank == Rank.Joker)
                     {
+                        // adding jokers is handled below, with if-IncludeJokers
                         continue;
                     }
 
                     AddCard(new Card(suit, rank));
                 }
+            }
+
+            if (IncludesJokers)
+            {
+                AddCard(new Card(Suit.Joker, Rank.Joker));
+                AddCard(new Card(Suit.Joker, Rank.Joker));
             }
         }
 

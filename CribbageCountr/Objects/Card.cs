@@ -10,6 +10,14 @@ namespace CribbageCountr
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
 
+        public bool IsJoker
+        {
+            get 
+            { 
+                return (this.Suit == Suit.Joker && this.Rank == Rank.Joker); 
+            }
+        }
+
         /// <summary>
         /// Compares a card against this card. For IEquatable.
         /// </summary>
@@ -17,6 +25,11 @@ namespace CribbageCountr
         /// <returns>Whether this card and the other card are the same.</returns>
         public bool Equals(Card otherCard)
         {
+            if (otherCard == null)
+            {
+                return false;
+            }
+
             return (this.Suit == otherCard.Suit &&
                     this.Rank == otherCard.Rank);
         }
