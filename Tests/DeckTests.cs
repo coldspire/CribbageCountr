@@ -22,10 +22,19 @@ namespace Tests
         [Fact]
         public void DeckWithOneDupeHas53Cards()
         {
-            Deck deck = new Deck(true, true);
+            Deck deck = new Deck(false, true);
             deck.AddCard(new Card(Suit.Club, Rank.Ace));
             
             Assert.Equal(53, deck.NumberOfCards);
+        }
+
+        [Fact]
+        public void DeckWithJokersOneDupeHas55Cards()
+        {
+            Deck deck = new Deck(true, true);
+            deck.AddCard(new Card(Suit.Club, Rank.Ace));
+
+            Assert.Equal(55, deck.NumberOfCards);
         }
     }
 }

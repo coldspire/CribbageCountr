@@ -6,9 +6,12 @@ namespace Tests
     public class CardTests
     {
         [Fact]
-        public void StubTest()
+        public void SameRankAndSuitsMatch()
         {
-            Card card = new Card(Suit.Club, Rank.Ace);
+            Card cardClubAce1 = new Card(Suit.Club, Rank.Ace);
+            Card cardClubAce2 = new Card(Suit.Club, Rank.Ace);
+
+            Assert.True(cardClubAce1.Equals(cardClubAce2));
         }
     }
 }
