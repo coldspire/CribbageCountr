@@ -9,6 +9,9 @@ namespace CribbageCountr
     {
         private List<Card> cards = new List<Card>();
 
+        public bool IncludesJokers { get; private set; }
+        public bool AllowsDuplicates { get; private set; }
+
         public void Shuffle()
         {
             // TODO: Shuffle this deck.
@@ -19,27 +22,27 @@ namespace CribbageCountr
         /// </summary>
         /// <param name="newCard">The card to add.</param>
         /// <returns>Whether the card was added.</returns>
-        private bool AddCard(Card newCard, bool NoDuplicates = true)
+        private bool AddCard(Card newCard)
         {
-            // TODO: Check for duplicates, and return false if one is found.
-            // if (NoDuplicates && found-a-duplicate)
-            // { return (false); }
+            if (!AllowsDuplicates && this.cards.Contains(newCard))
+            {
+                return (false);
+            }
 
             cards.Add(newCard);
             return (true);
         }
 
         /// <summary>
-        /// Initializes a standard 52- or 54-card deck for playing. 
+        /// Initializes a standard 52- or 54-card (includes jokers) deck.
         /// </summary>
-        /// <param name="IncludeJokers">Whether to include the two jokers in the deck.</param>
-        private void Init(bool IncludeJokers = false)
+        private void Init()
         {
             foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
                 foreach (Rank rank in Enum.GetValues(typeof(Rank)))
                 {
-                    if (rank == Rank.Joker && !IncludeJokers)
+                    if (rank == Rank.Joker && !IncludesJokers)
                     {
                         continue;
                     }
@@ -47,11 +50,17 @@ namespace CribbageCountr
                     AddCard(new Card(suit, rank));
                 }
             }
+
+            //TEST: For duplicates
+            AddCard(new Card(Suit.Club, Rank.Ace));
         }
 
-        public Deck(bool IncludeJokers = false)
+        public Deck(bool includeJokers = false, bool allowDuplicates = false)
         {
-            Init(IncludeJokers);
+            IncludesJokers = includeJokers;
+            AllowsDuplicates = allowDuplicates;
+
+            Init();
         }
     }
 }
