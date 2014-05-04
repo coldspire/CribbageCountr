@@ -13,5 +13,12 @@ namespace Tests
 
             Assert.True(cardClubAce1.Equals(cardClubAce2));
         }
+
+        [Fact]
+        public void SuitRankJokerMismatchThrowsExcept()
+        {
+            Assert.Throws<System.ArgumentException>(() => new Card(Suit.Joker, Rank.Ace));
+            Assert.Throws<System.ArgumentException>(() => new Card(Suit.Club, Rank.Joker));
+        }
     }
 }

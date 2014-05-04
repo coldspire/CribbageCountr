@@ -33,6 +33,12 @@ namespace CribbageCountr
 
         public Card(Suit suit, Rank rank)
         {
+            if ((suit == Suit.Joker && rank != Rank.Joker) ||
+                (suit != Suit.Joker && rank == Rank.Joker))
+            {
+                throw new System.ArgumentException("Card init has suit and rank joker mismatch.");
+            }
+
             this.Suit = suit;
             this.Rank = rank;
         }
