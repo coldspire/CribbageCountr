@@ -39,7 +39,7 @@ namespace Tests
         }
 
         [Fact]
-        public void SuitRankJokerMismatchThrowsExcept()
+        public void DeckSuitRankJokerMismatchThrowsExcept()
         {
             Card mismatched;
             Deck deck = new Deck(true, true);
@@ -61,15 +61,15 @@ namespace Tests
         }
 
         [Fact]
-        public void DeckInvalidIndexesThrowsExcpt()
+        public void DeckIndexerInvalidThrowsExcpt()
         {
             Deck deck = new Deck();
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[-1]);
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[99]);
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[deck.NumberOfCards+1]);
         }
 
         [Fact]
-        public void ShuffleDoesAShuffle()
+        public void DeckShuffleDoesAShuffle()
         {
             // TODO: Implement this test.
             // Need to make an unshuffled deck, and then a shuffled deck.

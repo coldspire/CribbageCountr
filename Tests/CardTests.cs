@@ -6,7 +6,7 @@ namespace Tests
     public class CardTests
     {
         [Fact]
-        public void SameRankAndSuitsMatch()
+        public void CardSameRankAndSuitsMatch()
         {
             Card cardClubAce1 = new Card(Suit.Club, Rank.Ace);
             Card cardClubAce2 = new Card(Suit.Club, Rank.Ace);
