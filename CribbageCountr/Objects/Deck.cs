@@ -19,6 +19,7 @@ namespace CribbageCountr
         public void Shuffle()
         {
             // TODO: Shuffle this deck.
+            throw new NotImplementedException();
         }
 
         /// <summary>

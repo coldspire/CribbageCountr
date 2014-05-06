@@ -1,4 +1,5 @@
-﻿using CribbageCountr;
+﻿
+using CribbageCountr;
 using Xunit;
 
 namespace Tests
@@ -48,6 +49,16 @@ namespace Tests
 
             mismatched = new Card(Suit.Club, Rank.Joker);
             Assert.Throws<System.ArgumentException>(() => deck.AddCard(mismatched));
+        }
+
+        [Fact]
+        public void ShuffleDoesAShuffle()
+        {
+            // TODO: Implement this test.
+            // Need to make an unshuffled deck, and then a shuffled deck.
+            // And then compare the two collections of cards.
+            // The problem currently is that the cards are not exposed,
+            // and I don't want to expose them just for the sake of a test.
         }
     }
 }
