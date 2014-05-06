@@ -16,10 +16,11 @@ namespace CribbageCountr
         }
 
         /// <summary>
-        /// Compares a card against this card. For IEquatable.
+        /// Compares a card against this card.
         /// </summary>
         /// <param name="otherCard">The card to compare against.</param>
         /// <returns>Whether this card and the other card are the same.</returns>
+        /// Needed for IEquatable.
         public bool Equals(Card otherCard)
         {
             if (otherCard == null)
@@ -33,12 +34,6 @@ namespace CribbageCountr
 
         public Card(Suit suit, Rank rank)
         {
-            if ((suit == Suit.Joker && rank != Rank.Joker) ||
-                (suit != Suit.Joker && rank == Rank.Joker))
-            {
-                throw new System.ArgumentException("Card init has suit and rank joker mismatch.");
-            }
-
             this.Suit = suit;
             this.Rank = rank;
         }

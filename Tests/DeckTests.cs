@@ -36,5 +36,18 @@ namespace Tests
 
             Assert.Equal(55, deck.NumberOfCards);
         }
+
+        [Fact]
+        public void SuitRankJokerMismatchThrowsExcept()
+        {
+            Card mismatched;
+            Deck deck = new Deck(true, true);
+
+            mismatched = new Card (Suit.Joker, Rank.Ace);
+            Assert.Throws<System.ArgumentException>(() => deck.AddCard(mismatched));
+
+            mismatched = new Card(Suit.Club, Rank.Joker);
+            Assert.Throws<System.ArgumentException>(() => deck.AddCard(mismatched));
+        }
     }
 }

@@ -22,17 +22,31 @@ namespace CribbageCountr
         }
 
         /// <summary>
-        /// Adds a card to this deck.
+        /// Adds a joker card to this deck.
+        /// </summary>
+        public void AddJoker()
+        {
+            AddCard(new Card(Suit.Joker, Rank.Joker));
+        }
+
+        /// <summary>
+        /// Adds a suit & rank card to this deck.
         /// </summary>
         /// <param name="newCard">The card to add.</param>
         /// <returns>Whether the card was added.</returns>
         public bool AddCard(Card newCard)
         {
+            if ((newCard.Suit == Suit.Joker && newCard.Rank != Rank.Joker) ||
+                (newCard.Suit != Suit.Joker && newCard.Rank == Rank.Joker))
+            {
+                throw new System.ArgumentException("AddCard card has suit and rank joker mismatch.");
+            }
+
             bool isJokerAndAllowed = (IncludesJokers && newCard.IsJoker);
 
-            if (!AllowsDuplicates
-                && !isJokerAndAllowed
-                && this.cards.Contains(newCard))
+            if (!AllowsDuplicates && 
+                !isJokerAndAllowed && // Two jokers can exist in a deck
+                this.cards.Contains(newCard))
             {
                 return (false);
             }
@@ -62,8 +76,8 @@ namespace CribbageCountr
 
             if (IncludesJokers)
             {
-                AddCard(new Card(Suit.Joker, Rank.Joker));
-                AddCard(new Card(Suit.Joker, Rank.Joker));
+                AddJoker();
+                AddJoker();
             }
         }
 
