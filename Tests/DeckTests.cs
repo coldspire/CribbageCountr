@@ -52,6 +52,23 @@ namespace Tests
         }
 
         [Fact]
+        public void DeckIndexerReturnsACard()
+        {
+            Deck deck = new Deck();
+            Card indexedCard = deck[0];
+            Assert.IsType(typeof(Card), indexedCard);
+            Assert.NotNull(indexedCard);
+        }
+
+        [Fact]
+        public void DeckInvalidIndexesThrowsExcpt()
+        {
+            Deck deck = new Deck();
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[-1]);
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[99]);
+        }
+
+        [Fact]
         public void ShuffleDoesAShuffle()
         {
             // TODO: Implement this test.

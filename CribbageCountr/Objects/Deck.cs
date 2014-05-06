@@ -16,6 +16,24 @@ namespace CribbageCountr
             get { return cards.Count(); }
         }
 
+        /// <summary>
+        /// Indexer to retrieve a single Card from the Deck.
+        /// </summary>
+        /// <param name="index">Index of the Card to retrieve.</param>
+        /// <returns>A Card, or null if the index is out of range.</returns>
+        public Card this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > NumberOfCards-1)
+                {
+                    throw new ArgumentOutOfRangeException("Card Index doesn't exist in Deck.");
+                }
+
+                return cards[index];
+            }
+        }
+
         public void Shuffle()
         {
             // TODO: Shuffle this deck.
