@@ -34,26 +34,46 @@ namespace CribbageCountr
             }
         }
 
-        /// <summary>
-        /// Shuffle the cards using a Fisher-Yates/Knuth shuffle.
-        /// </summary>
-        public void Shuffle()
+        public Deck(bool includeJokers, bool allowDuplicates)
         {
-            if (cards == null || cards.Count <= 1)
-            {
-                return;
-            }
+            IncludesJokers = includeJokers;
+            AllowsDuplicates = allowDuplicates;
 
-            Random random = new Random();
-            for (int deckEnd = this.cards.Count - 1; deckEnd >= 1; deckEnd--)
-            {
-                int cardIdx = random.Next(0, deckEnd);
-                cards[cardIdx].Swap(cards[deckEnd]);
-            }
-
-            return;
+            Init();
         }
 
+        public Deck()
+            : this(false, false)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a standard 52- or 54-card deck.
+        /// </summary>
+        private void Init()
+        {
+            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            {
+                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+                {
+                    if (suit == Suit.Joker || rank == Rank.Joker)
+                    {
+                        // adding jokers is handled below, with if-IncludeJokers
+                        continue;
+                    }
+
+                    AddCard(new Card(suit, rank));
+                }
+            }
+
+            if (IncludesJokers)
+            {
+                AddJoker();
+                AddJoker();
+            }
+        }
+
+        #region Manipulations - Individual Cards
         /// <summary>
         /// Adds a joker card to this deck.
         /// </summary>
@@ -87,43 +107,28 @@ namespace CribbageCountr
             cards.Add(newCard);
             return (true);
         }
+        #endregion
 
+        #region Manipulations - Entire deck
         /// <summary>
-        /// Initializes a standard 52- or 54-card deck.
+        /// Shuffle the cards using a Fisher-Yates/Knuth shuffle.
         /// </summary>
-        private void Init()
+        public void Shuffle()
         {
-            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            if (cards == null || cards.Count <= 1)
             {
-                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
-                {
-                    if (suit == Suit.Joker || rank == Rank.Joker)
-                    {
-                        // adding jokers is handled below, with if-IncludeJokers
-                        continue;
-                    }
-
-                    AddCard(new Card(suit, rank));
-                }
+                return;
             }
 
-            if (IncludesJokers)
+            Random random = new Random();
+            for (int deckEnd = this.cards.Count - 1; deckEnd >= 1; deckEnd--)
             {
-                AddJoker();
-                AddJoker();
+                int cardIdx = random.Next(0, deckEnd);
+                cards[cardIdx].Swap(cards[deckEnd]);
             }
-        }
 
-        public Deck(bool includeJokers, bool allowDuplicates)
-        {
-            IncludesJokers = includeJokers;
-            AllowsDuplicates = allowDuplicates;
-
-            Init();
+            return;
         }
-
-        public Deck() : this(false, false)
-        {
-        }
+        #endregion
     }
 }
