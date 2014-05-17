@@ -32,6 +32,10 @@ namespace CribbageCountr
                     this.Rank == otherCard.Rank);
         }
 
+        public Card(Card cardToCopy) : this(cardToCopy.Suit, cardToCopy.Rank)
+        {
+        }
+
         public Card(Suit suit, Rank rank)
         {
             this.Suit = suit;

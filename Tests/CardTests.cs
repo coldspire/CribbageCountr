@@ -13,5 +13,19 @@ namespace Tests
 
             Assert.True(cardClubAce1.Equals(cardClubAce2));
         }
+
+        [Fact]
+        public void CardSwapActuallySwapsCards()
+        {
+            Card cardOneOrig = new Card(Suit.Club, Rank.Ace);
+            Card cardTwoOrig = new Card(Suit.Spade, Rank.King);
+
+            Card cardOneSwapper = new Card(cardOneOrig);
+            Card cardTwoSwapper = new Card(cardTwoOrig);
+
+            cardOneSwapper.Swap(cardTwoSwapper);
+            Assert.True(cardOneOrig.Equals(cardTwoSwapper));
+            Assert.True(cardTwoOrig.Equals(cardOneSwapper));
+        }
     }
 }
