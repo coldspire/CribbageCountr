@@ -16,24 +16,6 @@ namespace CribbageCountr
             get { return cards.Count(); }
         }
 
-        /// <summary>
-        /// Indexer to retrieve a single Card from the Deck.
-        /// </summary>
-        /// <param name="index">Index of the Card to retrieve.</param>
-        /// <returns>A Card.</returns>
-        public Card this[int index]
-        {
-            get
-            {
-                if (index < 0 || index > NumberOfCards-1)
-                {
-                    throw new ArgumentOutOfRangeException("Card Index doesn't exist in Deck.");
-                }
-
-                return cards[index];
-            }
-        }
-
         public Deck(bool includeJokers, bool allowDuplicates)
         {
             IncludesJokers = includeJokers;
@@ -72,6 +54,44 @@ namespace CribbageCountr
                 AddJoker();
             }
         }
+
+        #region Card retrievals
+
+        /// <summary>
+        /// Indexer to retrieve a single Card from the Deck.
+        /// </summary>
+        /// <param name="index">Index of the Card to retrieve.</param>
+        /// <returns>A Card.</returns>
+        public Card this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > NumberOfCards-1)
+                {
+                    throw new ArgumentOutOfRangeException("Card Index doesn't exist in Deck.");
+                }
+
+                return cards[index];
+            }
+        }
+
+        public Card[] Slice(int numCardsToRetrieve, bool IncludePlayed = false)
+        {
+            if (numCardsToRetrieve < 0)
+            {
+                throw new ArgumentOutOfRangeException("Number of cards to retrieve cannot be negative");
+            }
+
+            var cardsQuery = cards.Select(card => card);
+            if (!IncludePlayed)
+            {
+                cardsQuery = cardsQuery.Where(card => !card.Played);
+            }
+
+            return (cardsQuery.Take(numCardsToRetrieve).ToArray());
+        }
+
+        #endregion
 
         #region Manipulations - Individual Cards
         /// <summary>

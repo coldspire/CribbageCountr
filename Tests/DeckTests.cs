@@ -1,5 +1,6 @@
 ﻿
 using CribbageCountr;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Tests
@@ -66,6 +67,38 @@ namespace Tests
             Deck deck = new Deck();
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[-1]);
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[deck.NumberOfCards+1]);
+        }
+
+        [Fact]
+        public void DeckSliceOf5Returns5Cards()
+        {
+            const int NumCardsToRetrieve = 5;
+
+            Deck deck = new Deck();
+            Card[] cardsSlice = deck.Slice(NumCardsToRetrieve);
+
+            Assert.True(cardsSlice.Length == NumCardsToRetrieve);
+        }
+
+        [Fact]
+        public void DeckSliceNegativeNumThrowsExcept()
+        {
+            const int NegNumCardsToRetrieve = -1;
+            Deck deck = new Deck();
+
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck.Slice(NegNumCardsToRetrieve));
+        }
+
+        [Fact]
+        public void DeckSliceMoreThanAllGetsAll()
+        {
+            Deck deck = new Deck();
+
+            int numTotalCards = deck.NumberOfCards;
+            int numMoreThanTotal = deck.NumberOfCards + 1;
+
+            Card[] cards = deck.Slice(numMoreThanTotal);
+            Assert.True(cards.Length == numTotalCards);
         }
 
         // Disabled for now, because this doesn't really make sense as a unit test.
