@@ -10,6 +10,7 @@ namespace CribbageCountr
         static void Main(string[] args)
         {
             Deck deck = new Deck(true, true);
+            deck.Shuffle();
         }
     }
 }

@@ -68,14 +68,17 @@ namespace Tests
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[deck.NumberOfCards+1]);
         }
 
+        // Disabled for now, because this doesn't really make sense as a unit test.
+        // I could check to see if the deck changes, but a shuffled deck could result
+        // in the deck ordered as it originally was (odds are 1 in 52! -- highly improbable, but possible).
+        // http://stackoverflow.com/questions/1442622/testing-a-card-deck-shuffler
+        // http://programmers.stackexchange.com/questions/147134/how-should-i-test-randomness
+        // http://stackoverflow.com/questions/311807/unit-testing-with-functions-that-return-random-results
+        /*
         [Fact]
         public void DeckShuffleDoesAShuffle()
         {
-            // TODO: Implement this test.
-            // Need to make an unshuffled deck, and then a shuffled deck.
-            // And then compare the two collections of cards.
-            // The problem currently is that the cards are not exposed,
-            // and I don't want to expose them just for the sake of a test.
         }
+        */
     }
 }

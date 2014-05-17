@@ -20,7 +20,7 @@ namespace CribbageCountr
         /// Indexer to retrieve a single Card from the Deck.
         /// </summary>
         /// <param name="index">Index of the Card to retrieve.</param>
-        /// <returns>A Card, or null if the index is out of range.</returns>
+        /// <returns>A Card.</returns>
         public Card this[int index]
         {
             get
@@ -34,10 +34,24 @@ namespace CribbageCountr
             }
         }
 
+        /// <summary>
+        /// Shuffle the cards using a Fisher-Yates/Knuth shuffle.
+        /// </summary>
         public void Shuffle()
         {
-            // TODO: Shuffle this deck.
-            throw new NotImplementedException();
+            if (cards == null || cards.Count <= 1)
+            {
+                return;
+            }
+
+            Random random = new Random();
+            for (int deckEnd = this.cards.Count - 1; deckEnd >= 1; deckEnd--)
+            {
+                int cardIdx = random.Next(0, deckEnd);
+                cards[cardIdx].Swap(cards[deckEnd]);
+            }
+
+            return;
         }
 
         /// <summary>
