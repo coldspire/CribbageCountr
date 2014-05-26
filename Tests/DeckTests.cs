@@ -102,6 +102,36 @@ namespace Tests
             Assert.True(cards.Count() == numTotalCards);
         }
 
+        [Fact]
+        public void DeckDrawZeroReturnsEmptyArray()
+        {
+            Deck deck = new Deck();
+            Card[] cards = deck.Draw(0).ToArray();
+
+            Assert.True(cards != null);
+            Assert.True(cards.Length == 0);
+        }
+
+        [Fact]
+        public void DeckDrawReturnsOnlyUnplayed()
+        {
+            const int CardsToLeaveNotPlayed = 3;
+
+            Deck deck = new Deck();
+            deck.Draw(deck.NumberOfCards - CardsToLeaveNotPlayed); // Draw most cards, i.e. mark most cards as Played
+
+            Card[] cards = deck.Draw(5).ToArray(); // Intentionally draw more cards than are not Played
+            Assert.True(cards.Length == CardsToLeaveNotPlayed);
+        }
+
+        [Fact]
+        public void DeckDrawDrawingAllMarksAllAsPlayed()
+        {
+            Deck deck = new Deck();
+            deck.Draw(deck.NumberOfCards);
+            Assert.True(deck.Draw(1).Count() == 0);
+        }
+
         // Disabled for now, because this doesn't really make sense as a unit test.
         // I could check to see if the deck changes, but a shuffled deck could result
         // in the deck ordered as it originally was (odds are 1 in 52! -- highly improbable, but possible).
