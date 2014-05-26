@@ -82,13 +82,13 @@ namespace CribbageCountr
                 throw new ArgumentOutOfRangeException("Number of cards to draw cannot be negative");
             }
 
-            var cardsQuery = cards.Select(card => card).Take(numCardsToRetrieve);
+            var cardsQuery = cards.Select(card => card);
             if (!IncludePlayed)
             {
                 cardsQuery = cardsQuery.Where(card => !card.Played);
             }
 
-            Card[] cardsDrawn = cardsQuery.ToArray();
+            Card[] cardsDrawn = cardsQuery.Take(numCardsToRetrieve).ToArray();
 
             foreach (Card card in cardsDrawn)
             {

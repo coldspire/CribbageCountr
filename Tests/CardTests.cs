@@ -27,5 +27,13 @@ namespace Tests
             Assert.True(cardOneOrig.Equals(cardTwoSwapper));
             Assert.True(cardTwoOrig.Equals(cardOneSwapper));
         }
+
+        [Fact]
+        public void CardDrawnMarksCardAsPlayed()
+        {
+            Deck deck = new Deck(false, false);
+            deck.Draw(1);
+            Assert.True(deck[0].Played);
+        }
     }
 }
