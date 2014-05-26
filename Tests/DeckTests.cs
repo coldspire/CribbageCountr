@@ -8,6 +8,7 @@ namespace Tests
 {
     public class DeckTests
     {
+        #region Init tests
         [Fact]
         public void DeckDefaultHas52Cards()
         {
@@ -52,7 +53,9 @@ namespace Tests
             mismatched = new Card(Suit.Club, Rank.Joker);
             Assert.Throws<System.ArgumentException>(() => deck.AddCard(mismatched));
         }
+        #endregion
 
+        #region Indexer tests
         [Fact]
         public void DeckIndexerReturnsACard()
         {
@@ -69,7 +72,9 @@ namespace Tests
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[-1]);
             Assert.Throws<System.ArgumentOutOfRangeException>(() => deck[deck.NumberOfCards+1]);
         }
+        #endregion
 
+        #region Draw tests
         [Fact]
         public void DeckDrawOf5Returns5Cards()
         {
@@ -131,6 +136,7 @@ namespace Tests
             deck.Draw(deck.NumberOfCards);
             Assert.True(deck.Draw(1).Count() == 0);
         }
+        #endregion
 
         // Disabled for now, because this doesn't really make sense as a unit test.
         // I could check to see if the deck changes, but a shuffled deck could result
