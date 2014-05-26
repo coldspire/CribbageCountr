@@ -16,18 +16,18 @@ namespace CribbageCountr
             get { return cards.Count(); }
         }
 
-        private bool allPlayed;
+        private bool m_allPlayed;
         public bool AllPlayed
         {
-            get { return allPlayed; }
+            get { return m_allPlayed; }
             private set
             {
-                if (value && value != allPlayed)
+                if (value && value != m_allPlayed)
                 {
                     // AllPlayed just became true.
                     // TODO: Fire a Played event here
                 }
-                allPlayed = value;
+                m_allPlayed = value;
             }
         }
 
@@ -181,6 +181,8 @@ namespace CribbageCountr
                 int cardIdx = random.Next(0, deckEnd);
                 cards[cardIdx].Swap(cards[deckEnd]);
             }
+
+            AllPlayed = false;
 
             return;
         }
