@@ -125,7 +125,7 @@ namespace Tests
             Deck deck = new Deck();
             deck.Draw(deck.NumberOfCards - CardsToLeaveNotPlayed); // Draw most cards, i.e. mark most cards as Played
 
-            Card[] cards = deck.Draw(5).ToArray(); // Intentionally draw more cards than are not Played
+            Card[] cards = deck.Draw(CardsToLeaveNotPlayed+1).ToArray(); // Intentionally draw more cards than are not Played
             Assert.True(cards.Length == CardsToLeaveNotPlayed);
         }
 
