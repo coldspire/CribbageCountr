@@ -16,6 +16,21 @@ namespace CribbageCountr
             get { return cards.Count(); }
         }
 
+        private bool allPlayed;
+        public bool AllPlayed
+        {
+            get { return allPlayed; }
+            private set
+            {
+                if (value && value != allPlayed)
+                {
+                    // AllPlayed just became true.
+                    // TODO: Fire a Played event here
+                }
+                allPlayed = value;
+            }
+        }
+
         public Deck(bool includeJokers, bool allowDuplicates)
         {
             IncludesJokers = includeJokers;
@@ -96,6 +111,11 @@ namespace CribbageCountr
             foreach (Card card in cardsDrawn)
             {
                 card.Played = true;
+            }
+
+            if (cards.All(card => card.Played))
+            {
+                AllPlayed = true;
             }
 
             return (cardsDrawn);

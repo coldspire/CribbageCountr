@@ -133,8 +133,12 @@ namespace Tests
         public void DeckDrawDrawingAllMarksAllAsPlayed()
         {
             Deck deck = new Deck();
-            deck.Draw(deck.NumberOfCards);
+            deck.Draw(deck.NumberOfCards-1);
+            Assert.True(!deck.AllPlayed); // Still have one unplayed card
+
+            deck.Draw(1); // Draw the final unplayed card
             Assert.True(deck.Draw(1).Count() == 0);
+            Assert.True(deck.AllPlayed);
         }
         #endregion
 
