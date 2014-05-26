@@ -75,20 +75,32 @@ namespace CribbageCountr
             }
         }
 
-        public Card[] Slice(int numCardsToRetrieve, bool IncludePlayed = false)
+        private Card[] GetCards(int numCardsToRetrieve, bool IncludePlayed = false)
         {
             if (numCardsToRetrieve < 0)
             {
-                throw new ArgumentOutOfRangeException("Number of cards to retrieve cannot be negative");
+                throw new ArgumentOutOfRangeException("Number of cards to draw cannot be negative");
             }
 
-            var cardsQuery = cards.Select(card => card);
+            var cardsQuery = cards.Select(card => card).Take(numCardsToRetrieve);
             if (!IncludePlayed)
             {
                 cardsQuery = cardsQuery.Where(card => !card.Played);
             }
 
-            return (cardsQuery.Take(numCardsToRetrieve).ToArray());
+            Card[] cardsDrawn = cardsQuery.ToArray();
+
+            foreach (Card card in cardsDrawn)
+            {
+                card.Played = true;
+            }
+
+            return (cardsDrawn);
+        }
+
+        public IEnumerable<Card> Draw(int numToDraw)
+        {
+            return (GetCards(numToDraw, false).AsEnumerable<Card>());
         }
 
         #endregion

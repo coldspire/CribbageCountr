@@ -1,6 +1,7 @@
 ﻿
 using CribbageCountr;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Tests
@@ -70,35 +71,35 @@ namespace Tests
         }
 
         [Fact]
-        public void DeckSliceOf5Returns5Cards()
+        public void DeckDrawOf5Returns5Cards()
         {
             const int NumCardsToRetrieve = 5;
 
             Deck deck = new Deck();
-            Card[] cardsSlice = deck.Slice(NumCardsToRetrieve);
+            Card[] cards = deck.Draw(NumCardsToRetrieve).ToArray();
 
-            Assert.True(cardsSlice.Length == NumCardsToRetrieve);
+            Assert.True(cards.Length == NumCardsToRetrieve);
         }
 
         [Fact]
-        public void DeckSliceNegativeNumThrowsExcept()
+        public void DeckDrawNegativeNumThrowsExcept()
         {
             const int NegNumCardsToRetrieve = -1;
             Deck deck = new Deck();
 
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck.Slice(NegNumCardsToRetrieve));
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => deck.Draw(NegNumCardsToRetrieve));
         }
 
         [Fact]
-        public void DeckSliceMoreThanAllGetsAll()
+        public void DeckDrawMoreThanAllGetsAll()
         {
             Deck deck = new Deck();
 
             int numTotalCards = deck.NumberOfCards;
             int numMoreThanTotal = deck.NumberOfCards + 1;
 
-            Card[] cards = deck.Slice(numMoreThanTotal);
-            Assert.True(cards.Length == numTotalCards);
+            Card[] cards = deck.Draw(numMoreThanTotal).ToArray();
+            Assert.True(cards.Count() == numTotalCards);
         }
 
         // Disabled for now, because this doesn't really make sense as a unit test.
