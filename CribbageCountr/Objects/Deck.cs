@@ -25,8 +25,11 @@ namespace CribbageCountr
         }
 
         public Deck()
-            : this(false, false)
         {
+            IncludesJokers = false;
+            AllowsDuplicates = false;
+
+            Init();
         }
 
         /// <summary>
