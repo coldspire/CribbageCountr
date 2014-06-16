@@ -43,6 +43,7 @@
     <Compile Include="Enums\Rank.cs" />
     <Compile Include="Enums\Suit.cs" />
     <Compile Include="Helpers\CardExtensions.cs" />
+    <Compile Include="Helpers\CribbageScorer.cs" />
     <Compile Include="Objects\Card.cs" />
     <Compile Include="Objects\Deck.cs" />
     <Compile Include="Program.cs" />
