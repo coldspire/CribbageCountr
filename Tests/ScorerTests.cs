@@ -7,10 +7,20 @@ namespace Tests
 {
     public class ScorerTests
     {
-        // Test that GetSets() asserts when width <= 0 is passed in
+        [Fact]
+        public void GetSetsWidthOfZeroOrNegAsserts()
+        {
+            Card[] cards = { new Card(Suit.Club, Rank.Ace) };
+
+            Assert.Throws(typeof(System.ArgumentOutOfRangeException),
+                          () => { CribbageScorer.GetSets(0, cards); });
+
+            Assert.Throws(typeof(System.ArgumentOutOfRangeException),
+                          () => { CribbageScorer.GetSets(-1, cards); });
+        }
 
         [Fact]
-        public void WidthOfOneReturnsSingleCardSets()
+        public void GetSetsWidthOfOneReturnsSingleCardSets()
         {
             Card[] cards = 
             { 
