@@ -36,13 +36,31 @@ namespace CribbageCountr
 
             if (setWidth == 1)
             {
-                // You get back a bunch of single-card sets.
+                // Returns single-card sets.
                 foreach (Card card in cards)
                 {
                     List<Card> set = new List<Card>() { card };
                     sets.Add(set);
                 }
                 return (sets.AsEnumerable());
+            }
+
+            // For multi-card sets.
+            for (int baseCard = 0; baseCard < cards.Length; baseCard++)
+            {
+                for (int nextCard = baseCard + 1; nextCard < cards.Length; nextCard++)
+                {
+                    List<Card> set = new List<Card>();
+                    set.Add(cards[baseCard]);
+
+                    int cardToAdd = nextCard;
+                    while (set.Count() < setWidth && cardToAdd < cards.Length)
+                    {
+                        set.Add(cards[nextCard]);
+                    }
+
+                    sets.Add(set);
+                }
             }
 
             return (sets.AsEnumerable());

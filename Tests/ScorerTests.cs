@@ -20,7 +20,7 @@ namespace Tests
         }
 
         [Fact]
-        public void GetSetsWidthOfOneReturnsSingleCardSets()
+        public void GetSets_Width1_Cards4_Returns4Sets()
         {
             Card[] cards = 
             { 
@@ -35,6 +35,26 @@ namespace Tests
             foreach (List<Card> set in sets)
             {
                 Assert.True(set.Count == 1);
+            }
+        }
+
+        [Fact]
+        public void GetSets_Width2_Cards4_Returns6Sets()
+        {
+            const int Width = 2;
+            Card[] cards = 
+            { 
+                new Card(Suit.Club, Rank.Ace),
+                new Card(Suit.Club, Rank.Two),
+                new Card(Suit.Club, Rank.Three),
+                new Card(Suit.Club, Rank.Four)
+            };
+            IEnumerable<List<Card>> sets = CribbageScorer.GetSets(Width, cards);
+
+            Assert.True(sets.Count() == 6);
+            foreach (List<Card> set in sets)
+            {
+                Assert.True(set.Count() == Width);
             }
         }
     }
