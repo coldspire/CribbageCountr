@@ -12,7 +12,7 @@ namespace Tests
             new Card(Suit.Club, Rank.Ace) 
         };
 
-        Card[] cards4 = 
+        private Card[] cards4 = 
         { 
             new Card(Suit.Club, Rank.Ace),
             new Card(Suit.Club, Rank.Two),
@@ -53,6 +53,19 @@ namespace Tests
             foreach (List<Card> set in sets)
             {
                 Assert.True(set.Count() == Width);
+            }
+        }
+
+        [Fact]
+        public void GetSets_Width4_Cards4_Returns1Set()
+        {
+            const int Width = 4;
+            IEnumerable<List<Card>> sets = CribbageScorer.GetSets(Width, cards4);
+
+            Assert.Equal(1, sets.Count());
+            if (sets.Count() == 1)
+            {
+                Assert.Equal(cards4.Count(), sets.Single<List<Card>>().Count()); // Should contain all cards
             }
         }
     }

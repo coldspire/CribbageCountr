@@ -56,7 +56,14 @@ namespace CribbageCountr
                     int cardToAdd = nextCard;
                     while (set.Count() < setWidth && cardToAdd < cards.Length)
                     {
-                        set.Add(cards[nextCard]);
+                        set.Add(cards[cardToAdd]);
+                        cardToAdd++;
+                    }
+
+                    if (set.Count() < setWidth)
+                    {
+                        // Set is too small to include. Discard.
+                        continue;
                     }
 
                     sets.Add(set);
