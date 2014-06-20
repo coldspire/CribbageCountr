@@ -46,6 +46,7 @@
     <Compile Include="DeckDrawTests.cs" />
     <Compile Include="DeckTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScorerGetSetsTests.cs" />
     <Compile Include="ScorerTests.cs" />
   </ItemGroup>
   <ItemGroup>
