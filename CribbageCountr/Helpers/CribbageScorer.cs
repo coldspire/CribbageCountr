@@ -8,7 +8,6 @@ namespace CribbageCountr
     {
         // TODO: Sum of 15 (2)
 
-        // TODO: 3-of-a-kind (6, three pairs)
         // TODO: 4-of-a-kind (12, six pairs)
 
         // TODO: Run of 3 (3)
@@ -24,11 +23,12 @@ namespace CribbageCountr
 
         // TODO: His Nobs (1: Jack is same suit as cut card)
 
-        private enum PointsPer : int
+        public enum PointsPer : int
         {
             None        = 0,
 
             Sum15       = 2,
+            Pair        = 2,
             OfKind2     = 2,
             OfKind3     = 6,
             OfKind4     = 12,
@@ -89,6 +89,21 @@ namespace CribbageCountr
             }
 
             return (sets.AsEnumerable());
+        }
+
+        public static int ScorePairs(Card[] hand)
+        {
+            int score = 0;
+
+            foreach (List<Card> set in GetSets(2, hand))
+            {
+                if (set[0].Rank == set[1].Rank)
+                {
+                    score += (int)PointsPer.Pair;
+                }
+            }
+
+            return (score);
         }
 
         public static int ScoreOfKind2(Card[] hand)
