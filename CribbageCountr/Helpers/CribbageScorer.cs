@@ -28,18 +28,22 @@ namespace CribbageCountr
             None        = 0,
 
             Sum15       = 2,
+
             Pair        = 2,
             OfKind2     = 2,
             OfKind3     = 6,
             OfKind4     = 12,
+
             Run3        = 3,
             Run4        = 4,
             Run5        = 5,
             Run3Pair    = 8,
             Run4Pair    = 10,
             RunTriple   = 15,
+
             Flush4      = 4,
             Flush5      = 5,
+
             HisNobs     = 1,
         };
 
@@ -91,6 +95,11 @@ namespace CribbageCountr
             return (sets.AsEnumerable());
         }
 
+        /// <summary>
+        /// Looks in a hand of cards and returns a score based on found pairs.
+        /// </summary>
+        /// <param name="hand">Cards possibly containing pairs.</param>
+        /// <returns>Points total based on pairs found.</returns>
         public static int ScorePairs(Card[] hand)
         {
             int score = 0;
@@ -100,36 +109,6 @@ namespace CribbageCountr
                 if (set[0].Rank == set[1].Rank)
                 {
                     score += (int)PointsPer.Pair;
-                }
-            }
-
-            return (score);
-        }
-
-        public static int ScoreOfKind2(Card[] hand)
-        {
-            int score = 0;
-            foreach (List<Card> set in GetSets(2, hand))
-            {
-                if (set[0].Rank == set[1].Rank)
-                {
-                    score += (int)PointsPer.OfKind2;
-                }
-            }
-
-            return (score);
-        }
-
-        public static int ScoreOfKind3(Card[] hand)
-        {
-            int score = 0;
-
-            foreach (List<Card> set in GetSets(3, hand))
-            {
-                if (set[0].Rank == set[1].Rank &&
-                    set[0].Rank == set[2].Rank)
-                {
-                    score += (int)PointsPer.OfKind3;
                 }
             }
 

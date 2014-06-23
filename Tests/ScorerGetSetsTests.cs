@@ -7,7 +7,6 @@ namespace Tests
 {
     public class ScorerGetSetsTests
     {
-
         private Card[] cards1 = 
         { 
             new Card(Suit.Club, Rank.Ace) 
