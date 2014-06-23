@@ -8,7 +8,6 @@ namespace CribbageCountr
     {
         // TODO: Sum of 15 (2)
 
-        // TODO: 2-of-a-kind, pair (2)
         // TODO: 3-of-a-kind (6, three pairs)
         // TODO: 4-of-a-kind (12, six pairs)
 
@@ -100,6 +99,22 @@ namespace CribbageCountr
                 if (set[0].Rank == set[1].Rank)
                 {
                     score += (int)PointsPer.OfKind2;
+                }
+            }
+
+            return (score);
+        }
+
+        public static int ScoreOfKind3(Card[] hand)
+        {
+            int score = 0;
+
+            foreach (List<Card> set in GetSets(3, hand))
+            {
+                if (set[0].Rank == set[1].Rank &&
+                    set[0].Rank == set[2].Rank)
+                {
+                    score += (int)PointsPer.OfKind3;
                 }
             }
 
