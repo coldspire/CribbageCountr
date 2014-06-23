@@ -24,7 +24,26 @@ namespace CribbageCountr
         // TODO: Flush of 5 (5)
 
         // TODO: His Nobs (1: Jack is same suit as cut card)
-        
+
+        private enum PointsPer : int
+        {
+            None        = 0,
+
+            Sum15       = 2,
+            OfKind2     = 2,
+            OfKind3     = 6,
+            OfKind4     = 12,
+            Run3        = 3,
+            Run4        = 4,
+            Run5        = 5,
+            Run3Pair    = 8,
+            Run4Pair    = 10,
+            RunTriple   = 15,
+            Flush4      = 4,
+            Flush5      = 5,
+            HisNobs     = 1,
+        };
+
         public static IEnumerable<List<Card>> GetSets(int setWidth, Card[] cards)
         {
             if (setWidth <= 0)
@@ -71,6 +90,20 @@ namespace CribbageCountr
             }
 
             return (sets.AsEnumerable());
+        }
+
+        public static int ScoreOfKind2(Card[] hand)
+        {
+            int score = 0;
+            foreach (List<Card> set in GetSets(2, hand))
+            {
+                if (set[0].Rank == set[1].Rank)
+                {
+                    score += (int)PointsPer.OfKind2;
+                }
+            }
+
+            return (score);
         }
 
         /// <summary>
