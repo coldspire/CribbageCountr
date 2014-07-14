@@ -8,8 +8,7 @@ namespace CribbageCountr
     {
         // TODO: Sum of 15 (2)
 
-        // TODO: 4-of-a-kind (12, six pairs)
-
+        // TODO: A sorted hand would be useful for the following three rules
         // TODO: Run of 3 (3)
         // TODO: Run of 4 (4)
         // TODO: Run of 5 (5)
@@ -125,7 +124,7 @@ namespace CribbageCountr
         {
             int pointsTotal = 0;
 
-
+            System.Array.Sort(hand);
 
             return (pointsTotal);
         }
