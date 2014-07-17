@@ -8,7 +8,7 @@ namespace Tests
     public class ScorerTests
     {
         [Fact]
-        public void OfKindsTests()
+        public void PairsTests()
         {
             Card[] cardsOnePair = 
             {
@@ -66,6 +66,96 @@ namespace Tests
             };
             Assert.Equal((int)CribbageScorer.PointsPer.OfKind4,
                          CribbageScorer.ScorePairs(cardsFourOfKind));
+        }
+        
+        [Fact]
+        public void RunsOf3Tests()
+        {
+            Card[] runOf3First3 =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Queen),
+                new Card(Suit.Club,    Rank.King)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run3,
+                          CribbageScorer.ScoreRuns(runOf3First3));
+
+            Card[] runOf3middle3 =
+            {
+                new Card(Suit.Club,    Rank.King),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Four),
+                new Card(Suit.Club,    Rank.Queen)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run3,
+                         CribbageScorer.ScoreRuns(runOf3middle3));
+
+            Card[] runOf3Last3 =
+            {
+                new Card(Suit.Club,    Rank.King),
+                new Card(Suit.Club,    Rank.Queen),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Four),
+                new Card(Suit.Club,    Rank.Five)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run3,
+                         CribbageScorer.ScoreRuns(runOf3Last3));
+
+            // TODO: Runs of threes with pair in the middle
+            
+            // TODO: Runs of threes with two pairs
+        }
+
+        [Fact]
+        public void RunsOf4Tests()
+        {
+            Card[] runOf4First4 =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Four),
+                new Card(Suit.Club,    Rank.King)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run4,
+                          CribbageScorer.ScoreRuns(runOf4First4));
+
+            Card[] runOf4Last4 = 
+            {
+                new Card(Suit.Club,    Rank.Queen),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Four)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run4,
+                         CribbageScorer.ScoreRuns(runOf4Last4));
+
+            // TODO: Runs of 4 with a pair in the middle
+        }
+
+        [Fact]
+        public void RunsOf5Tests()
+        {
+            Card[] runOf5All5 =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three),
+                new Card(Suit.Club,    Rank.Four),
+                new Card(Suit.Club,    Rank.Five)
+            };
+
+            Assert.Equal((int)CribbageScorer.PointsPer.Run5,
+                          CribbageScorer.ScoreRuns(runOf5All5));
         }
     }
 }

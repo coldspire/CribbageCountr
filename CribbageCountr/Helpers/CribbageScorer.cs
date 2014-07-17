@@ -114,17 +114,72 @@ namespace CribbageCountr
             return (score);
         }
 
+        public static int ScoreRuns(Card[] hand)
+        {
+            int score = 0;
+            System.Array.Sort(hand);
+
+            if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
+                (int)hand[1].Rank == (int)hand[2].Rank-1 &&
+                (int)hand[2].Rank == (int)hand[3].Rank-1 &&
+                (int)hand[3].Rank == (int)hand[4].Rank-1)
+            {
+                score += (int)PointsPer.Run5;
+            }
+            else if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
+                     (int)hand[1].Rank == (int)hand[2].Rank-1 &&
+                     (int)hand[2].Rank == (int)hand[3].Rank-1)
+            {
+                // Run of the first four cards.
+                score += (int)PointsPer.Run4;
+            }
+            else if ((int)hand[1].Rank == (int)hand[2].Rank-1 &&
+                     (int)hand[2].Rank == (int)hand[3].Rank-1 &&
+                     (int)hand[3].Rank == (int)hand[4].Rank-1)
+            {
+                // Run of the last four cards.
+                score += (int)PointsPer.Run4;
+            }
+            else if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
+                     (int)hand[1].Rank == (int)hand[2].Rank-1)
+            {
+                // Run of the first three cards
+                score += (int)PointsPer.Run3;
+            }
+            else if ((int)hand[1].Rank == (int)hand[2].Rank-1 &&
+                     (int)hand[2].Rank == (int)hand[3].Rank-1)
+            {
+                // Run of the middle three cards
+                score += (int)PointsPer.Run3;
+            }
+            else if ((int)hand[2].Rank == (int)hand[3].Rank-1 &&
+                     (int)hand[3].Rank == (int)hand[4].Rank-1)
+            {
+                // Run of the last three cards
+                score += (int)PointsPer.Run3;
+            }
+
+            // TODO: Run of three with one or more pairs part of the run
+
+            // TODO: Run of four with a pair as part of the run
+            
+            return (score);
+        }
+
         /// <summary>
-        /// Returns the score of a single cribbage hand.
+        /// Returns the score of a single cribbage hand of 5 cards.
         /// </summary>
         /// <param name="hand">All cards in the hand to be scored.</param>
         /// <param name="cutCard">A card in the hand that is the cut card.</param>
         /// <returns>Number of scored points.</returns>
         public static int ScoreHand(Card[] hand, Card cutCard)
         {
-            int pointsTotal = 0;
+            if (hand.Count() != 5)
+            {
+                throw new System.ArgumentException("Hand of cards must be exactly five cards.");
+            }
 
-            System.Array.Sort(hand);
+            int pointsTotal = 0;
 
             return (pointsTotal);
         }
