@@ -106,10 +106,6 @@ namespace Tests
 
             Assert.Equal((int)CribbageScorer.PointsPer.Run3,
                          CribbageScorer.ScoreRuns(runOf3Last3));
-
-            // TODO: Runs of threes with pair in the middle
-            
-            // TODO: Runs of threes with two pairs
         }
 
         [Fact]
@@ -156,6 +152,18 @@ namespace Tests
 
             Assert.Equal((int)CribbageScorer.PointsPer.Run5,
                           CribbageScorer.ScoreRuns(runOf5All5));
+        }
+
+        [Fact]
+        public void RunOf3WithPairs()
+        {
+            // TODO
+        }
+
+        [Fact]
+        public void RunOf4WithPair()
+        {
+            // TODO
         }
     }
 }

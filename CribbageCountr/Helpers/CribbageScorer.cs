@@ -46,6 +46,12 @@ namespace CribbageCountr
             HisNobs     = 1,
         };
 
+        /// <summary>
+        /// Returns an IEnumerable of all unordered sets of a specified width from a hand of cards.
+        /// </summary>
+        /// <param name="setWidth">Width of the unordered sets</param>
+        /// <param name="cards">Cards to make sets from</param>
+        /// <returns>Sets of cards of a specified width</returns>
         public static IEnumerable<List<Card>> GetSets(int setWidth, Card[] cards)
         {
             if (setWidth <= 0)
@@ -95,10 +101,10 @@ namespace CribbageCountr
         }
 
         /// <summary>
-        /// Looks in a hand of cards and returns a score based on found pairs.
+        /// Finds if a five-card hand contains and pairs and scores the pairs.
         /// </summary>
-        /// <param name="hand">Cards possibly containing pairs.</param>
-        /// <returns>Points total based on pairs found.</returns>
+        /// <param name="hand">A five-card cribbage hand.</param>
+        /// <returns>Score (if any) for any pairs in the hand.</returns>
         public static int ScorePairs(Card[] hand)
         {
             int score = 0;
@@ -114,6 +120,11 @@ namespace CribbageCountr
             return (score);
         }
 
+        /// <summary>
+        /// Finds if a five-card hand has any runs and scores the run.
+        /// </summary>
+        /// <param name="hand">A five-card cribbage hand.</param>
+        /// <returns>Score (if any) for any runs in the hand.</returns>
         public static int ScoreRuns(Card[] hand)
         {
             int score = 0;
@@ -158,10 +169,6 @@ namespace CribbageCountr
                 // Run of the last three cards
                 score += (int)PointsPer.Run3;
             }
-
-            // TODO: Run of three with one or more pairs part of the run
-
-            // TODO: Run of four with a pair as part of the run
             
             return (score);
         }
@@ -176,6 +183,7 @@ namespace CribbageCountr
         {
             if (hand.Count() != 5)
             {
+                // Gotta have five cards in a hand for correct scoring.
                 throw new System.ArgumentException("Hand of cards must be exactly five cards.");
             }
 
