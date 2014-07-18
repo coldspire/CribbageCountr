@@ -130,47 +130,63 @@ namespace CribbageCountr
             int score = 0;
             System.Array.Sort(hand);
 
-            if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
-                (int)hand[1].Rank == (int)hand[2].Rank-1 &&
-                (int)hand[2].Rank == (int)hand[3].Rank-1 &&
-                (int)hand[3].Rank == (int)hand[4].Rank-1)
+            Rank highRank = hand[0].Rank;
+            int lengthOfRun = 1;
+            for (int cardIdx = 0; cardIdx < 5; cardIdx++)
             {
-                score += (int)PointsPer.Run5;
+                Card nextCard = hand[cardIdx];
+
+                if (highRank == nextCard.Rank)
+                {
+                    continue; // Found a pair -- keep going, since run may still continue
+                }
+                else if ((int)highRank == (int)nextCard.Rank - 1)
+                {
+                    lengthOfRun += 1; // The run continues
+                }
+                else
+                {
+                    // This card's rank doesn't match the previous card's (or cards') rank.
+
+                    // One of three things could happen here:
+                    // 1) We don't have a run yet, but a run could occur with remaining cards.
+                    // ---- Occurs when the run is broken on cards 2 or 3.
+                    // 2) We don't have a run yet, and we don't have enough cards to make one.
+                    // ---- Occurs when the run is broken on cards 4 or 5.
+                    // 3) We have a run, but we don't have enough cards to make a larger run.
+                    // ---- Occurs when the run is broken on cards 4 or 5.
+
+                    if (cardIdx == 3 || cardIdx == 4)
+                    {
+                        break; // We're done -- we can't start or extend a run with only 1-2 cards.
+                    }
+                    else // cardIdx is 1 or 2
+                    {
+                        lengthOfRun = 1; // Restart the counter, since we may yet find a run of 3.
+                    }
+                }
+
+                highRank = nextCard.Rank;
             }
-            else if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
-                     (int)hand[1].Rank == (int)hand[2].Rank-1 &&
-                     (int)hand[2].Rank == (int)hand[3].Rank-1)
+
+            // TODO: If a run contains one or more pairs, multiple runs should be scored.
+            // E.g. if AAA23, then this has three runs: A23, A23, A23. (ScorePairs will score three pairs.)
+            // Or AA223, with runs of A23, A23. (ScorePairs will score two pairs.)
+
+            if (lengthOfRun == 3)
             {
-                // Run of the first four cards.
-                score += (int)PointsPer.Run4;
+                return ((int)PointsPer.Run3);
             }
-            else if ((int)hand[1].Rank == (int)hand[2].Rank-1 &&
-                     (int)hand[2].Rank == (int)hand[3].Rank-1 &&
-                     (int)hand[3].Rank == (int)hand[4].Rank-1)
+            else if (lengthOfRun == 4)
             {
-                // Run of the last four cards.
-                score += (int)PointsPer.Run4;
+                return ((int)PointsPer.Run4);
             }
-            else if ((int)hand[0].Rank == (int)hand[1].Rank-1 &&
-                     (int)hand[1].Rank == (int)hand[2].Rank-1)
+            else if (lengthOfRun == 5)
             {
-                // Run of the first three cards
-                score += (int)PointsPer.Run3;
-            }
-            else if ((int)hand[1].Rank == (int)hand[2].Rank-1 &&
-                     (int)hand[2].Rank == (int)hand[3].Rank-1)
-            {
-                // Run of the middle three cards
-                score += (int)PointsPer.Run3;
-            }
-            else if ((int)hand[2].Rank == (int)hand[3].Rank-1 &&
-                     (int)hand[3].Rank == (int)hand[4].Rank-1)
-            {
-                // Run of the last three cards
-                score += (int)PointsPer.Run3;
+                return ((int)PointsPer.Run5);
             }
             
-            return (score);
+            return ((int)PointsPer.None);
         }
 
         /// <summary>

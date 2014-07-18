@@ -158,12 +158,16 @@ namespace Tests
         public void RunOf3WithPairs()
         {
             // TODO
+
+            Assert.True(0 == 1);
         }
 
         [Fact]
         public void RunOf4WithPair()
         {
             // TODO
+
+            Assert.True(0 == 1);
         }
     }
 }
