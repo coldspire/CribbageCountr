@@ -8,20 +8,18 @@ namespace CribbageCountr
     {
         // TODO: Sum of 15 (2)
 
-        // TODO: A sorted hand would be useful for the following three rules
-        // TODO: Run of 3 (3)
-        // TODO: Run of 4 (4)
-        // TODO: Run of 5 (5)
-
-        // TODO: Run of 3, plus a pair  (8: two run-of-threes, plus a pair)
-        // TODO: Run of 4, plus a pair (10: two run-of-fours, plus a pair)
-        // TODO: Triple run (15: three pairs, plus a run-of-three)
+        // TODO: Run of 3 plus a pair  (run-3 double)
+        // TODO: Run of 4, plus a pair (run-4 double)
+        // TODO: Run of 3 with three of a kind (triple run)
+        // TODO: Run of 3 with two pairs (run double double)
 
         // TODO: Flush of 4 (4)
         // TODO: Flush of 5 (5)
 
         // TODO: His Nobs (1: Jack is same suit as cut card)
 
+
+        // TODO: Move this to its own static public class
         public enum PointsPer : int
         {
             None        = 0,
@@ -36,9 +34,9 @@ namespace CribbageCountr
             Run3        = 3,
             Run4        = 4,
             Run5        = 5,
-            Run3Pair    = 8,
-            Run4Pair    = 10,
-            RunTriple   = 15,
+            RunDouble   = 6,    // e.g. AA223
+            RunTriple   = 9,    // e.g. AAA23
+            RunDblDbl   = 12,   // e.g. AA223
 
             Flush4      = 4,
             Flush5      = 5,
@@ -127,7 +125,6 @@ namespace CribbageCountr
         /// <returns>Score (if any) for any runs in the hand.</returns>
         public static int ScoreRuns(Card[] hand)
         {
-            int score = 0;
             System.Array.Sort(hand);
 
             Rank highRank = hand[0].Rank;
@@ -138,6 +135,10 @@ namespace CribbageCountr
 
                 if (highRank == nextCard.Rank)
                 {
+                    // TODO: If a run contains one or more pairs, multiple runs should be scored.
+                    // E.g. if AAA23, then this has three runs: A23, A23, A23. (ScorePairs will score three pairs.)
+                    // Or AA223, with runs of A23, A23. (ScorePairs will score two pairs.)
+
                     continue; // Found a pair -- keep going, since run may still continue
                 }
                 else if ((int)highRank == (int)nextCard.Rank - 1)
@@ -169,24 +170,26 @@ namespace CribbageCountr
                 highRank = nextCard.Rank;
             }
 
-            // TODO: If a run contains one or more pairs, multiple runs should be scored.
-            // E.g. if AAA23, then this has three runs: A23, A23, A23. (ScorePairs will score three pairs.)
-            // Or AA223, with runs of A23, A23. (ScorePairs will score two pairs.)
+            int score;
 
             if (lengthOfRun == 3)
             {
-                return ((int)PointsPer.Run3);
+                score = (int)PointsPer.Run3;
             }
             else if (lengthOfRun == 4)
             {
-                return ((int)PointsPer.Run4);
+                score = (int)PointsPer.Run4;
             }
             else if (lengthOfRun == 5)
             {
-                return ((int)PointsPer.Run5);
+                score = (int)PointsPer.Run5;
+            }
+            else
+            {
+                score = (int)PointsPer.None;
             }
             
-            return ((int)PointsPer.None);
+            return (score);
         }
 
         /// <summary>

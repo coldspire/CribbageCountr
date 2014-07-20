@@ -155,17 +155,46 @@ namespace Tests
         }
 
         [Fact]
-        public void RunOf3WithPairs()
+        public void RunsOf3Double()
         {
-            // TODO
+            Card[] runOf3TwoPairsFirst =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three)
+            };
 
             Assert.True(0 == 1);
         }
 
         [Fact]
-        public void RunOf4WithPair()
+        public void RunsOf3Triple()
         {
-            // TODO
+            Card[] runOf3TwoPairsFirst =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three)
+            };
+
+            Assert.True(0 == 1);
+        }
+
+        [Fact]
+        public void RunsOf3DoubleDouble()
+        {
+            Card[] runOf3TwoPairsFirst =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three)
+            };
 
             Assert.True(0 == 1);
         }
