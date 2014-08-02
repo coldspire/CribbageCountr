@@ -18,7 +18,7 @@ namespace Tests
                 new Card(Suit.Club,  Rank.Four),
                 new Card(Suit.Spade, Rank.Four)
             };
-            Assert.Equal((int)CribbageScorer.PointsPer.Pair, 
+            Assert.Equal((int)CribbageScorer.PointsPer.OfKind2, 
                          CribbageScorer.ScorePairs(cardsOnePair));
 
             Card[] cardsTwoDiffPair = 
@@ -29,7 +29,7 @@ namespace Tests
                 new Card(Suit.Club,  Rank.Four),
                 new Card(Suit.Spade, Rank.Four)
             };
-            Assert.Equal((int)CribbageScorer.PointsPer.Pair * 2,
+            Assert.Equal((int)CribbageScorer.PointsPer.OfKind2 * 2,
                          CribbageScorer.ScorePairs(cardsTwoDiffPair));
 
             Card[] cardsThreeOfKind = 
@@ -52,7 +52,7 @@ namespace Tests
                 new Card(Suit.Heart, Rank.Four)
             };
             const int ExpectedScore =
-                (int)CribbageScorer.PointsPer.Pair +    // Pair of aces
+                (int)CribbageScorer.PointsPer.OfKind2 +    // Pair of aces
                 (int)CribbageScorer.PointsPer.OfKind3;  // Three pairs of fours
             Assert.Equal(ExpectedScore, CribbageScorer.ScorePairs(cardsOneAndThreePairs));
 
@@ -166,7 +166,8 @@ namespace Tests
                 new Card(Suit.Club,    Rank.Three)
             };
 
-            Assert.True(0 == 1);
+            Assert.Equal((int)CribbageScorer.PointsPer.RunDouble,
+                         CribbageScorer.ScoreRuns(runOf3TwoPairsFirst));
         }
 
         [Fact]
@@ -181,7 +182,8 @@ namespace Tests
                 new Card(Suit.Club,    Rank.Three)
             };
 
-            Assert.True(0 == 1);
+            Assert.Equal((int)CribbageScorer.PointsPer.RunTriple,
+                          CribbageScorer.ScoreRuns(runOf3TwoPairsFirst));
         }
 
         [Fact]
@@ -196,7 +198,8 @@ namespace Tests
                 new Card(Suit.Club,    Rank.Three)
             };
 
-            Assert.True(0 == 1);
+            Assert.Equal((int)CribbageScorer.PointsPer.RunDblDbl,
+                         CribbageScorer.ScoreRuns(runOf3TwoPairsFirst));
         }
     }
 }

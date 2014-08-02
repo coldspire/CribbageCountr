@@ -26,8 +26,7 @@ namespace CribbageCountr
 
             Sum15       = 2,
 
-            Pair        = 2,
-            OfKind2     = 2,
+            OfKind2        = 2,
             OfKind3     = 6,
             OfKind4     = 12,
 
@@ -111,7 +110,7 @@ namespace CribbageCountr
             {
                 if (set[0].Rank == set[1].Rank)
                 {
-                    score += (int)PointsPer.Pair;
+                    score += (int)PointsPer.OfKind2;
                 }
             }
 
@@ -125,68 +124,69 @@ namespace CribbageCountr
         /// <returns>Score (if any) for any runs in the hand.</returns>
         public static int ScoreRuns(Card[] hand)
         {
+            if (hand.Count() != 5)
+            {
+                throw new System.ArgumentException("Hand of cards must be exactly 5 cards.");
+            }
+
             System.Array.Sort(hand);
 
-            Rank highRank = hand[0].Rank;
-            int lengthOfRun = 1;
-            for (int cardIdx = 0; cardIdx < 5; cardIdx++)
-            {
-                Card nextCard = hand[cardIdx];
-
-                if (highRank == nextCard.Rank)
-                {
-                    // TODO: If a run contains one or more pairs, multiple runs should be scored.
-                    // E.g. if AAA23, then this has three runs: A23, A23, A23. (ScorePairs will score three pairs.)
-                    // Or AA223, with runs of A23, A23. (ScorePairs will score two pairs.)
-
-                    continue; // Found a pair -- keep going, since run may still continue
-                }
-                else if ((int)highRank == (int)nextCard.Rank - 1)
-                {
-                    lengthOfRun += 1; // The run continues
-                }
-                else
-                {
-                    // This card's rank doesn't match the previous card's (or cards') rank.
-
-                    // One of three things could happen here:
-                    // 1) We don't have a run yet, but a run could occur with remaining cards.
-                    // ---- Occurs when the run is broken on cards 2 or 3.
-                    // 2) We don't have a run yet, and we don't have enough cards to make one.
-                    // ---- Occurs when the run is broken on cards 4 or 5.
-                    // 3) We have a run, but we don't have enough cards to make a larger run.
-                    // ---- Occurs when the run is broken on cards 4 or 5.
-
-                    if (cardIdx == 3 || cardIdx == 4)
-                    {
-                        break; // We're done -- we can't start or extend a run with only 1-2 cards.
-                    }
-                    else // cardIdx is 1 or 2
-                    {
-                        lengthOfRun = 1; // Restart the counter, since we may yet find a run of 3.
-                    }
-                }
-
-                highRank = nextCard.Rank;
-            }
-
             int score;
+            bool isRunOf5;  // Can only have one run of 5
+            int numRunsOf4;
+            int numRunsOf3;
 
-            if (lengthOfRun == 3)
+            score = 0;
+
+            isRunOf5 = true; // assume we have one, until we find that we don't
+            for (int handIdx = 0; handIdx <= 3; handIdx++)
             {
-                score = (int)PointsPer.Run3;
+                if ((int)hand[handIdx].Rank+1 != (int)hand[handIdx+1].Rank)
+                {
+                    // found a break in the run
+                    isRunOf5 = false;
+                    break;
+                }
             }
-            else if (lengthOfRun == 4)
+
+            numRunsOf4 = 0;
+            if (!isRunOf5)
             {
-                score = (int)PointsPer.Run4;
+                foreach(List<Card> setOf4 in GetSets(4, hand))
+                {
+                    if ((int)setOf4[0].Rank+1 == (int)setOf4[0+1].Rank &&
+                        (int)setOf4[1].Rank+1 == (int)setOf4[1+1].Rank &&
+                        (int)setOf4[2].Rank+1 == (int)setOf4[2+1].Rank)
+                    {
+                        numRunsOf4 += 1;
+                    }
+                }
             }
-            else if (lengthOfRun == 5)
+
+            numRunsOf3 = 0;
+            if (!isRunOf5 && numRunsOf4 == 0)
+            {   
+                foreach(List<Card> setOf3 in GetSets(3, hand))
+                {
+                    if ((int)setOf3[0].Rank+1 == (int)setOf3[0+1].Rank &&
+                        (int)setOf3[1].Rank+1 == (int)setOf3[1+1].Rank)
+                    {
+                        numRunsOf3 += 1;
+                    }
+                }
+            }
+
+            if (isRunOf5)
             {
                 score = (int)PointsPer.Run5;
             }
-            else
+            else if (numRunsOf4 > 0)
             {
-                score = (int)PointsPer.None;
+                score = (int)PointsPer.Run4 * numRunsOf4;
+            }
+            else if (numRunsOf3 > 0)
+            {
+                score = (int)PointsPer.Run3 * numRunsOf3;
             }
             
             return (score);
