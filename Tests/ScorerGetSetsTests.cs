@@ -68,5 +68,27 @@ namespace Tests
                 Assert.Equal(cards4.Count(), sets.Single<List<Card>>().Count()); // Should contain all cards
             }
         }
+
+        [Fact]
+        public void GetSets_Width3Pairs2_Cards5_Returns8Sets()
+        {
+            const int Width = 3;
+            Card[] runOf3TwoPairsFirst =
+            {
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Ace),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Two),
+                new Card(Suit.Club,    Rank.Three)
+            };
+
+            IEnumerable<List<Card>> sets = CribbageScorer.GetSets(Width, runOf3TwoPairsFirst);
+
+            Assert.Equal(8, sets.Count());
+            foreach (List<Card> set in sets)
+            {
+                Assert.True(set.Count() == Width);
+            }
+        }
     }
 }
